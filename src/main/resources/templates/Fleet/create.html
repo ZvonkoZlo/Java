@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Fleet</title>
+</head>
+<body>
+<h1>Add Fleet</h1>
+<form th:action="@{/fleet/add}" th:object="${fleet}" method="post" >
+    <div>
+        <label for="brand">Brand:</label>
+        <input type="text" id="brand" name="brand" th:field="*{brand}"/>
+    </div>
+    <div>
+        <label for="model">Model:</label>
+        <input type="text" id="model" name="model" th:field="*{model}"/>
+    </div>
+    <div>
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" th:field="*{description}"></textarea>
+    </div>
+    <div>
+        <label for="imageFile">Image:</label>
+        <input type="file" id="imageFile" name="imageFile" th:field="*{image}" >
+    </div>
+    <button type="submit">Add Fleet</button>
+</form>
+</body>
+</html>

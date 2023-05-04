@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Knjižnica - dodaj knjigu</title>
+</head>
+<body>
+<div layout:fragment="content">
+    <div class="d-flex align-items-center justify-content-between">
+        <h1>Dodaj knjigu</h1>
+    </div>
+
+    <form th:action="@{/books/add}" method="post" th:object="${book}">
+        <div class="form-group row">
+            <label class="col-4 col-form-label">Naslov knjige: </label>
+            <div class="col-8">
+                <input th:unless="${#fields.hasErrors('title')}" type="text" th:field="*{title}" class="form-control"/>
+                <input th:if="${#fields.hasErrors('title')}" type="text" th:field="*{title}"
+                       class="form-control  is-invalid"/>
+                <div th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="invalid-feedback"></div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-4 col-form-label">ISBN knjige: </label>
+            <div class="col-8">
+                <input th:unless="${#fields.hasErrors('ISBN')}" type="text" th:field="*{ISBN}" class="form-control"/>
+                <input th:if="${#fields.hasErrors('ISBN')}" type="text" th:field="*{ISBN}"
+                       class="form-control  is-invalid"/>
+                <div th:if="${#fields.hasErrors('ISBN')}" th:errors="*{ISBN}" class="invalid-feedback"></div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-4 col-form-label">Autor knjige: </label>
+            <div class="col-8">
+                <input th:unless="${#fields.hasErrors('author')}" type="text" th:field="*{author}"
+                       class="form-control"/>
+                <input th:if="${#fields.hasErrors('author')}" type="text" th:field="*{author}"
+                       class="form-control  is-invalid"/>
+                <div th:if="${#fields.hasErrors('author')}" th:errors="*{author}" class="invalid-feedback"></div>
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-4 col-form-label">Godina izdanja knjige: </label>
+            <div class="col-8">
+                <input th:unless="${#fields.hasErrors('year')}" type="number" th:field="*{year}" class="form-control"/>
+                <input th:if="${#fields.hasErrors('year')}" type="number" th:field="*{year}"
+                       class="form-control  is-invalid"/>
+                <div th:if="${#fields.hasErrors('year')}" th:errors="*{year}" class="invalid-feedback"></div>
+            </div>
+        </div>
+
+        <div>
+            <button type="submit" class="btn btn-primary">Dodaj knjigu</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
