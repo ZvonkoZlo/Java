@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorate="~{layout}">
+<head>
+  <title>Knjiznica - prikaz rezervacija</title>
+</head>
+<body>
+<div layout:fragment="content">
+  <div class="d-flex align-items-center justify-content-between">
+    <h1>Lista rezervacija</h1>
+    <a href="/reservation/add" class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i> Dodaj rezervaciju</a>
+  </div>
+  <table class="table table-striped table-bordered">
+    <thead class="thead-dark">
+    <tr>
+      <th>ID</th>
+      <th>Pocetak</th>
+      <th>Kraj</th>
+      <th>Fleet</th>
+
+      <th colspan="2">Akcije</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="rezervacija: ${listReservation}">
+      <td th:text="${rezervacija.id}">Id</td>
+      <td th:text="${rezervacija.pocetakRezervacije}">Brend</td>
+      <td th:text="${rezervacija.krajRezervacije}">Model</td>
+      <td th:text="${rezervacija.fleet}">Slika</td>
+
+      <td><a class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></a></td>
+      <td><a class="btn btn-danger" ><i class="fa-solid fa-trash"></i></a></td>
+    </tr>
+    </tbody>
+  </table>
+
+
+</div>
+
+</body>
+</html>

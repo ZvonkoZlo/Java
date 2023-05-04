@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Novi zahtjev za rezervaciju</title>
+</head>
+<body>
+<h1>Novi zahtjev za rezervaciju</h1>
+<form method="post" action="/reservation/add">
+  <p>Datum početka rezervacije:</p>
+  <input type="datetime-local" name="pocetakRezervacije">
+  <p>Datum kraja rezervacije:</p>
+  <input type="datetime-local" name="krajRezervacije">
+  <p>Odaberi vozilo:</p>
+  <select name="fleet">
+
+      <option th:each="car: ${fleetList}" th:text="${car.brand}"></option>
+
+  </select>
+  <br><br>
+  <input type="submit" value="Kreiraj">
+</form>
+</body>
+</html>
