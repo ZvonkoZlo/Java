@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layout}">
 <head>
-    <title>Knjižnica - korisnici</title>
+    <title>Rent a car - korisnici</title>
 </head>
 <body>
 <div layout:fragment="content">
@@ -14,6 +14,7 @@
             <th>E-mail</th>
             <th>Ime</th>
             <th>Prezime</th>
+            <th>Uloga</th>
             <th>Akcija</th>
         </tr>
         </thead>
@@ -23,8 +24,11 @@
             <td th:text="${user.email}">E-mail</td>
             <td th:text="${user.firstname}">First Name</td>
             <td th:text="${user.lastname}">Last Name</td>
+            <td th:if="${user.role == 2}">SuperAdmin</td>
+            <td th:if="${user.role == 1}">Admin</td>
+            <td th:if="${user.role == 0}">Korisnik</td>
             <td>
-                <form th:action="@{/delete}" method="post" class="d-inline">
+                <form  th:if="${userDetails.getRole == 2}" th:action="@{/delete}" method="post" class="d-inline">
                     <input type="hidden" name="id" th:value="${user.id}">
                     <button type="submit" class="btn btn-danger ">
                         <i class="fa-solid fa-trash"></i>

@@ -1,5 +1,6 @@
 package ba.sum.fsre.knjiznica.model;
 
+import jakarta.servlet.http.PushBuilder;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.Collection;
@@ -25,6 +26,11 @@ public class UserDetails implements org.springframework.security.core.userdetail
     public String getUsername() {
         return user.getEmail();
     }
+
+
+    public int getRole(){return user.getRole();}
+
+    public long  getId(){return user.getId();}
 
     @Override
     public boolean isAccountNonExpired() {

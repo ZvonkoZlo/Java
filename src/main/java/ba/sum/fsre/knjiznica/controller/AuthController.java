@@ -23,26 +23,26 @@ public class AuthController {
     @GetMapping("/register")
     public String showRegistrationForm (Model model) {
         model.addAttribute("user", new User());
-        return "register_form";
+        return "Auth/register_form";
     }
 
     @PostMapping("/register_user")
     public String registerUser (@Valid User user, BindingResult result, Model model) {
         boolean errors = result.hasErrors();
         if (errors) {
-            return "register_form";
+            return "Auth/register_form";
         }
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         user.setPasswordRepeat(encodedPassword);
         user.setPassword(encodedPassword);
         userRepo.save(user);
-        return "register_success";
+        return "Auth/register_success";
     }
 
     @GetMapping("/login")
     public String showLoginForm(Model model){
         model.addAttribute("user", new User());
-        return "login_form";
+        return "Auth/login_form";
     }
 }

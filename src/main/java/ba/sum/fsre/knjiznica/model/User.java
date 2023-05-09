@@ -2,6 +2,7 @@ package ba.sum.fsre.knjiznica.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
+import org.hibernate.validator.constraints.Range;
 
 @Entity
 @Table(name="users")
@@ -19,6 +20,17 @@ public class User {
     private String password;
     @NotBlank(message="Molimo ponovite Vašu lozinku.")
     private String passwordRepeat;
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
+    }
+    @Range(min = 0, max = 2, message = "Uloga mora biti između 0 i 2.")
+    @Column(name = "role", nullable = false)
+    private int role;
 
     private boolean passwordsEqual;
 
@@ -52,6 +64,7 @@ public class User {
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
+        this.role = 0;
     }
 
 

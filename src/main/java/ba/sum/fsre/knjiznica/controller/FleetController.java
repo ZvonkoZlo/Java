@@ -1,6 +1,7 @@
 package ba.sum.fsre.knjiznica.controller;
 
 import ba.sum.fsre.knjiznica.model.Book;
+import ba.sum.fsre.knjiznica.model.Reservation;
 import ba.sum.fsre.knjiznica.repositories.FleetRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
@@ -57,6 +59,12 @@ public class FleetController {
             fleetRepo.save(fleet);
              return "redirect:/fleet";
     }
-
+    @GetMapping("/fleet/delete/{id}")
+    public String delete(@PathVariable("id") long id, Model model) {
+        Fleet fleet = fleetRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid reservation Id:" + id));
+        fleetRepo.delete(fleet);
+        return "redirect:/fleet";
+    }
 
 }

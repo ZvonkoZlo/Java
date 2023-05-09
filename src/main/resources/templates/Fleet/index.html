@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorate="~{layout}">
 <head>
-    <title>Knjiznica - prikaz flote</title>
+    <title>Rent a car - prikaz flote</title>
 </head>
 <body>
 <div layout:fragment="content">
     <div class="d-flex align-items-center justify-content-between">
         <h1>Lista knjiga</h1>
-        <a href="/fleet/add" class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i> Dodaj knjigu</a>
+        <a href="/fleet/add" class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i> Dodaj Automobil</a>
     </div>
     <table class="table table-striped table-bordered">
         <thead class="thead-dark">
@@ -28,7 +28,8 @@
             <td th:text="${car.image}">Slika</td>
             <td th:text="${car.description}">Opis</td>
             <td><a class="btn btn-info"><i class="fa-solid fa-pen-to-square"></i></a></td>
-            <td><a class="btn btn-danger" ><i class="fa-solid fa-trash"></i></a></td>
+            <td><a class="btn btn-danger" th:href="@{/fleet/delete/{id}(id=${car.id})}"><i class="fa-solid fa-trash"></i></a></td>
+            <td><a class="btn " th:href="@{/reservation/add/{id}(id=${car.id})}"><i class="fa-solid fa-ad"></i></a></td>
         </tr>
         </tbody>
     </table>

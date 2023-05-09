@@ -26,7 +26,7 @@ public class UserController {
         model.addAttribute("listUsers", listUsers);
         model.addAttribute("userDetails", userDetails);
         model.addAttribute("activeLink", "Korisnici");
-        return "users";
+        return "User/index";
     }
     @PostMapping("/delete")
     public String deleteOsoba(@RequestParam("id") Long id){
@@ -44,7 +44,7 @@ public class UserController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         model.addAttribute("userDetails", userDetails);
         model.addAttribute("activeLink", "User");
-        return "edit_user";
+        return "User/edit";
     }
     @PostMapping("/update")
     public String updateOsoba(@ModelAttribute("osoba") User osoba, BindingResult result, Model model){
@@ -53,7 +53,7 @@ public class UserController {
         model.addAttribute("activeLink", "User");
         if(result.hasErrors()){
 
-            return "edit_user";
+            return "User/edit";
         }
         userRepo.save(osoba);
         return "redirect:/users";

@@ -6,6 +6,10 @@ import jakarta.validation.constraints.NotBlank;
 @Entity
 @Table(name = "fleet")
 public class Fleet {
+    public String getMarkaIBrend() {
+        return this.model + " " + this.brand;
+    }
+
     public Long getId() {
         return id;
     }

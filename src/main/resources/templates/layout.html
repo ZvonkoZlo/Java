@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
     <meta charset="UTF-8">
-    <title>Knjižnica</title>
+    <title>Rent a car</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css"
           integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
@@ -14,7 +14,7 @@
 </head>
 <body style="background-color: whitesmoke">
 <header class="navbar bg-white navbar-light sticky-top flex-md-nowrap p-0 shadow">
-    <a href="#" class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6">Knjižnica</a>
+    <a href="#" class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6">Rent a car</a>
     <div>
         <div class="dropdown text-end">
             <a class="btn-outline btn dropdown-toggle mt-2 mb-2 mr-5" data-bs-toggle="dropdown"
@@ -37,7 +37,7 @@
                     <li class="nav-item"><a th:class="${#strings.equals(activeLink, 'Korisnici')} ? 'nav-link active' : 'nav-link'" href="/users">Korisnici</a></li>
                     <li class="nav-item"><a th:class="${#strings.equals(activeLink, 'Knjige')} ? 'nav-link active' : 'nav-link'" href="/books">Knjige</a></li>
                     <li class="nav-item"><a th:class="${#strings.equals(activeLink, 'Fleet')} ? 'nav-link active' : 'nav-link'" href="/fleet">Fleet</a></li>
-                    <li class="nav-item"><a th:class="${#strings.equals(activeLink, 'Reservation')} ? 'nav-link active' : 'nav-link'" href="/reservation">Reservation</a></li>
+                    <li th:if="${userDetails.getRole == 1 || userDetails.getRole == 2}" class="nav-item"><a th:class="${#strings.equals(activeLink, 'Reservation')} ? 'nav-link active' : 'nav-link'" href="/reservation">Reservation</a></li>
                 </ul>
             </div>
         </nav>

@@ -47,9 +47,31 @@ public class Reservation {
 
     private LocalDateTime krajRezervacije;
 
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    private int status;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fleet_id")
     private Fleet fleet;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     // getters and setters
 }

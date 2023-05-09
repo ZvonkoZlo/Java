@@ -30,7 +30,7 @@ public class BookController {
         List<Book> listBooks = bookRepo.findAll();
         model.addAttribute("listBooks", listBooks);
         model.addAttribute("activeLink", "Knjige");
-        return "books";
+        return "Book/index";
     }
 
     @GetMapping("books/add")
@@ -40,7 +40,7 @@ public class BookController {
         model.addAttribute("activeLink", "Knjige");
         model.addAttribute("userDetails", userDetails);
         model.addAttribute("book", new Book());
-        return "add_book";
+        return "Book/create";
     }
 
     @PostMapping("books/add")
@@ -52,7 +52,7 @@ public class BookController {
             model.addAttribute("activeLink", "Knjige");
             model.addAttribute("userDetails", userDetails);
             model.addAttribute("book", book);
-            return "add_book";
+            return "Book/create";
         }
         bookRepo.save(book);
         return "redirect:/books";
@@ -67,7 +67,7 @@ public class BookController {
         model.addAttribute("activeLink", "Knjige");
         model.addAttribute("userDetails", userDetails);
         model.addAttribute("book", book);
-        return "edit_book";
+        return "Book/edit";
     }
 
     @PostMapping("books/update/{id}")
@@ -80,7 +80,7 @@ public class BookController {
             model.addAttribute("activeLink", "Knjige");
             model.addAttribute("userDetails", userDetails);
             model.addAttribute("book", book);
-            return "edit_book";
+            return "Book/edit";
         }
 
         bookRepo.save(book);
