@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Upload file</title>
+</head>
+<body>
+<h1>Upload file</h1>
+<form method="POST" enctype="multipart/form-data" th:action="@{/uploadfile}">
+  <input type="file" name="file" />
+  <button type="submit">Upload</button>
+</form>
+</body>
+</html>

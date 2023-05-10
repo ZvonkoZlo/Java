@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Add Fleet</h1>
-<form th:action="@{/fleet/add}" th:object="${fleet}" method="post" >
+<form th:action="@{/fleet/add}" th:object="${fleet}" method="post" enctype="multipart/form-data" >
     <div>
         <label for="brand">Brand:</label>
         <input type="text" id="brand" name="brand" th:field="*{brand}"/>
@@ -20,8 +20,11 @@
         <textarea id="description" name="description" th:field="*{description}"></textarea>
     </div>
     <div>
+        <input type="file" name="file" />
+    </div>
+    <div>
         <label for="imageFile">Image:</label>
-        <input type="file" id="imageFile" name="imageFile" th:field="*{image}" >
+        <input type="text" id="imageFile" name="imageFile" th:field="*{image}" >
     </div>
     <button type="submit">Add Fleet</button>
 </form>

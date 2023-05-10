@@ -3,61 +3,56 @@
 <head>
   <meta charset="UTF-8">
   <title>Novi zahtjev za rezervaciju</title>
-
   <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" integrity="sha512-9hZ1n9ZaAWv2kWgE8tGIwJt+gH1Jz8d2QvwP9lTIf+7VqdftJ8sGbtbsCivk41YBwVZ+0n1D7Jsb9p+qI7Vrsg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-  <!-- Font Awesome icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-gXfXJiMFXOgjy8vHY0FtLwNt/vDwuzW8UNnIVzUS9cJXf1F7jWlNr2tAGeP0bRCUpysHw4W50oZM4dFF1bR2KA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <style>
+    body {
+      background-image: url('https://images.unsplash.com/photo-1555215695-3004980ad54e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80');
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center center;
+    }
+
+    .form-container {
+      margin-top: 50px;
+    }
+  </style>
 </head>
 <body>
+<div class="container">
+  <div class="row justify-content-center form-container">
+    <div class="col-12 col-md-8 col-lg-6">
+      <h1 class="text-center mb-4 text-white">Novi zahtjev za rezervaciju</h1>
 
-<div class="container py-4">
-
-  <div class="row justify-content-center">
-    <div class="col-md-6">
-
-      <div class="card">
-        <div class="card-header">
-          <h3 class="card-title mb-0">Novi zahtjev za rezervaciju</h3>
+      <form th:action="@{/reservation/add}" th:object="${reservation}" method="post">
+        <div class="form-group">
+          <label for="pocetakRezervacije" class="text-white">Datum početka rezervacije:</label>
+          <input type="datetime-local" class="form-control" id="pocetakRezervacije" name="pocetakRezervacije">
         </div>
-
-        <div class="card-body">
-
-          <form th:action="@{/reservation/add}" th:object="${reservation}" method="post">
-
-            <div class="mb-3">
-              <label for="pocetakRezervacije" class="form-label">Datum početka rezervacije:</label>
-              <input type="datetime-local" id="pocetakRezervacije" name="pocetakRezervacije" class="form-control" required>
-            </div>
-
-            <div class="mb-3">
-              <label for="krajRezervacije" class="form-label">Datum kraja rezervacije:</label>
-              <input type="datetime-local" id="krajRezervacije" name="krajRezervacije" class="form-control" required>
-            </div>
-
-            <input type="hidden" name="fleet_id" th:value="${carid}" />
-            <input type="hidden" name="user_id" th:value="${username}" />
-
-            <div class="text-center">
-              <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Kreiraj</button>
-            </div>
-
-          </form>
-
+        <div class="form-group">
+          <label for="krajRezervacije" class="text-white">Datum kraja rezervacije:</label>
+          <input type="datetime-local" class="form-control" id="krajRezervacije" name="krajRezervacije">
         </div>
-      </div>
+        <input type="hidden" name="fleet_id" th:value="${carid}" />
+        <input type="hidden" name="user_id" th:value="${username}" />
 
+        <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Kreiraj</button>
+      </form>
     </div>
   </div>
-
 </div>
 
 <!-- Bootstrap JS -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.2/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js" integrity="sha512-C2jizsJVy4MW4MolI4X9GQ7VnylIGerN1fjAvx3Roq3tVwzlpnuuZt+hjP9XmNx7oJv23zdZCmMVhNy/HBz1Dw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<!-- Font Awesome icons -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js"></script>
+<!-- jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-9/sr9LJZ7SLbx3Kq8zY6wJtF0V7OjLJc3nUjKgAzT/kFPpDxg2QzRiY4td4IWB4Cx+QN8e6WrbtbvJmXQaDQxQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+<!-- Font Awesome JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-gvC2GQitLb0TeSNFzWGlVK6lJU6fnSUl6C0UHNW9XvJ+nEzy+cvZ5xLVL5rk/Sn5w5hzrsQ+oJn5aCQ9JhRdDw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 </html>

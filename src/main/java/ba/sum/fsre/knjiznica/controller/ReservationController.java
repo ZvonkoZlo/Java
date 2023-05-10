@@ -58,6 +58,7 @@ public class ReservationController {
         User user = userRepository.findByEmail(email);
         Long userid = user.getId();
 
+
         model.addAttribute("username", userid);
         return "Reservation/create";
     }
@@ -74,6 +75,7 @@ public class ReservationController {
         User user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("Invalid user id: " + userId));
         reservation.setFleet(fleet);
         reservation.setUser(user);
+
         reservationRepo.save(reservation);
         return "redirect:/reservation";
     }
