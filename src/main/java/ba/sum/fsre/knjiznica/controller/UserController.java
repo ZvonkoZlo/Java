@@ -6,6 +6,7 @@ import ba.sum.fsre.knjiznica.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -55,6 +56,10 @@ public class UserController {
 
             return "User/edit";
         }
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String encodedPassword = passwordEncoder.encode(osoba.getPassword());
+        osoba.setPasswordRepeat(encodedPassword);
+        osoba.setPassword(encodedPassword);
         userRepo.save(osoba);
         return "redirect:/users";
     }

@@ -3,6 +3,82 @@
 <head>
     <meta charset="UTF-8">
     <title>Rent a car - uredi osobu</title>
+    <style>
+        .toggle_radio {
+            position: relative;
+            background: rgba(255, 255, 255, .1);
+            margin: 4px auto;
+            overflow: hidden;
+            padding: 0 !important;
+            -webkit-border-radius: 50px;
+            -moz-border-radius: 50px;
+            border-radius: 50px;
+            position: relative;
+            height: 40px;
+            width: 318px;
+        }
+
+        .toggle_radio>* {
+            float: left;
+        }
+
+        .toggle_radio input[type=radio] {
+            display: none;
+            /*position: fixed;*/
+        }
+
+        .toggle_radio label {
+            font: 90%/1.618 "Source Sans Pro";
+            color: black;
+            z-index: 0;
+            display: block;
+            width: 100px;
+            height: 20px;
+            margin: 3px 3px;
+            -webkit-border-radius: 50px;
+            -moz-border-radius: 50px;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1;
+            /*background: rgba(0,0,0,.1);*/
+            text-align: center;
+            /*margin: 0 2px;*/
+            /*background: blue;*/
+            /*make it blue*/
+        }
+
+        .toggle_option_slider {
+            /*display: none;*/
+            /*background: red;*/
+            width: 100px;
+            height: 30px;
+            position: absolute;
+            top: 1px;
+            -webkit-border-radius: 50px;
+            -moz-border-radius: 50px;
+            border-radius: 50px;
+            -webkit-transition: all .4s ease;
+            -moz-transition: all .4s ease;
+            -o-transition: all .4s ease;
+            -ms-transition: all .4s ease;
+            transition: all .4s ease;
+        }
+
+        #first_toggle:checked~.toggle_option_slider {
+            background: rgba(49, 10, 245, 0.3);
+            left: 3px;
+        }
+
+        #second_toggle:checked~.toggle_option_slider {
+            background: rgba(49, 10, 245, 0.3);
+            left: 109px;
+        }
+
+        #third_toggle:checked~.toggle_option_slider {
+            background: rgba(49, 10, 245, 0.3);
+            left: 215px;
+        }
+    </style>
 </head>
 <body>
 <div layout:fragment="content">
@@ -42,13 +118,26 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label class="col-4 col-form-label">Uloga: </label>
-                    <div class="col-8">
-                        <input  type="number" th:field="*{role}" autocomplete="off" min="0" max="2" class="form-control"/>
-                    </div>
-                </div>
 
+
+                    <div class="toggle_radio">
+                        <input type="radio" class="toggle_option" id="first_toggle" th:field="*{role}" value="2">
+                        <input type="radio" checked class="toggle_option" id="second_toggle" th:field="*{role}"
+                               value="1">
+                        <input type="radio" class="toggle_option" id="third_toggle" th:field="*{role}" value="0">
+                        <label for="first_toggle">
+                            <h6>Super Admin</h6>
+                        </label>
+                        <label for="second_toggle">
+                            <h6>Admin</h6>
+                        </label>
+                        <label for="third_toggle">
+                            <h6>Korisnik</h6>
+                        </label>
+                        <div class="toggle_option_slider">
+                        </div>
+                    </div>
+            </div>
 
 
 

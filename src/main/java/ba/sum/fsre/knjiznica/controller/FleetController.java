@@ -1,12 +1,9 @@
 package ba.sum.fsre.knjiznica.controller;
 
-import ba.sum.fsre.knjiznica.model.Book;
-import ba.sum.fsre.knjiznica.model.Reservation;
+import ba.sum.fsre.knjiznica.model.*;
 import ba.sum.fsre.knjiznica.repositories.FleetRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
-import ba.sum.fsre.knjiznica.model.Fleet;
-import ba.sum.fsre.knjiznica.model.UserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -33,10 +30,12 @@ public class FleetController {
 
     @Autowired
     FleetRepository fleetRepo;
+   /*
     @GetMapping("/upload")
     public String showUploadForm() {
         return "Slike/create";
     }
+
     @PostMapping("/uploadfile")
     public String handleFileUpload(@RequestParam("file") MultipartFile file) throws IOException {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
@@ -48,7 +47,7 @@ public class FleetController {
 
         // preusmjeravanje korisnika na stranicu za prikaz uspješnosti učitavanja
         return "redirect:/fleet";
-    }
+    }*/
 
 
     @GetMapping("/fleet")
@@ -60,6 +59,34 @@ public class FleetController {
         model.addAttribute("listFleet", listFleet);
         model.addAttribute("activeLink", "Fleet");
         return "Fleet/index";
+    }
+    @GetMapping("/fleet/edit/{id}")
+    public String prikaziFormuEdit(@PathVariable("id") long id, Model model){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        model.addAttribute("userDetails", userDetails);
+        model.addAttribute("activeLink", "Fleet");
+        Fleet fleet = fleetRepo.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid osoba ID:" + id));
+        model.addAttribute("fleet",fleet);
+        return "Fleet/edit";
+
+    }
+    @PostMapping("fleet/update/{id}")
+    public String updateUser(@PathVariable("id") long id, @Valid Fleet fleet,
+                             BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            fleet.setId(id);
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            model.addAttribute("activeLink", "Fleet");
+            model.addAttribute("userDetails", userDetails);
+            model.addAttribute("fleet", fleet);
+            return "Fleet/edit";
+        }
+
+        fleetRepo.save(fleet);
+        return "redirect:/fleet";
     }
 
     @GetMapping("/fleet/add")
@@ -91,7 +118,7 @@ public class FleetController {
 
         // Novi naziv datoteke s verzijom
         String newFileName = fileId + fileExtension;*/
-
+        try {
         String fileName = StringUtils.cleanPath(file.getOriginalFilename());
         // Spremanje datoteke u "static" direktorij projekta
         Path staticDir = Paths.get("src/main/resources/static");
@@ -102,6 +129,11 @@ public class FleetController {
         // preusmjeravanje korisnika na stranicu za prikaz uspješnosti učitavanja
             fleetRepo.save(fleet);
              return "redirect:/fleet";
+    } catch (Exception e) {
+        e.printStackTrace();
+        model.addAttribute("error", "Error while adding fleet");
+        return "eror";
+    }
     }
     @GetMapping("/fleet/delete/{id}")
     public String delete(@PathVariable("id") long id, Model model) {

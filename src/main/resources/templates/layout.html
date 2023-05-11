@@ -35,7 +35,6 @@
             <div class="position-sticky pt-3 sidebar-sticky">
                 <ul class="nav nav-pills flex-column">
                     <li class="nav-item"><a th:class="${#strings.equals(activeLink, 'Korisnici')} ? 'nav-link active' : 'nav-link'" href="/users">Korisnici</a></li>
-                    <li class="nav-item"><a th:class="${#strings.equals(activeLink, 'Knjige')} ? 'nav-link active' : 'nav-link'" href="/books">Knjige</a></li>
                     <li class="nav-item"><a th:class="${#strings.equals(activeLink, 'Fleet')} ? 'nav-link active' : 'nav-link'" href="/fleet">Fleet</a></li>
                     <li th:if="${userDetails.getRole == 1 || userDetails.getRole == 2}" class="nav-item"><a th:class="${#strings.equals(activeLink, 'Reservation')} ? 'nav-link active' : 'nav-link'" href="/reservation">Reservation</a></li>
                 </ul>

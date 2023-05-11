@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>Add Fleet</h1>
-<form th:action="@{/fleet/add}" th:object="${fleet}" method="post" enctype="multipart/form-data" >
+<form id="myForm" th:action="@{/fleet/add}" th:object="${fleet}" method="post" enctype="multipart/form-data" >
     <div>
         <label for="brand">Brand:</label>
         <input type="text" id="brand" name="brand" th:field="*{brand}"/>
@@ -23,10 +23,25 @@
         <input type="file" name="file" />
     </div>
     <div>
-        <label for="imageFile">Image:</label>
-        <input type="text" id="imageFile" name="imageFile" th:field="*{image}" >
+
+        <input type="hidden" id="imageFile" name="imageFile" th:field="*{image}" >
     </div>
-    <button type="submit">Add Fleet</button>
+    <button type="submit" id="submitButton">Add Fleet</button>
 </form>
 </body>
+<script>
+    const form = document.getElementById('myForm');
+    const submitButton = document.getElementById('submitButton');
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault(); // spriječi podnošenje obrasca
+
+        // postavi vrijednost polja image na "test"
+        const imageInput = document.getElementById('imageFile');
+        imageInput.value = 'test';
+
+        // ponovo podnesite obrazac
+        form.submit();
+    });
+</script>
 </html>

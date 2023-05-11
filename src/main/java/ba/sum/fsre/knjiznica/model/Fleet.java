@@ -3,6 +3,9 @@ package ba.sum.fsre.knjiznica.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Table(name = "fleet")
 public class Fleet {
@@ -70,4 +73,6 @@ public class Fleet {
     @NotBlank(message = "Molimo unesite opis vozila.")
     String description;
 
+    @OneToMany(mappedBy = "fleet", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Reservation> reservations = new ArrayList<>();
 }
