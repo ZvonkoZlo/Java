@@ -29,8 +29,8 @@
             <td th:text="${car.model}">Model</td>
             <td > <img height="100" th:src="${'/'} + ${car.image}" width="100"></td>
             <td th:text="${car.description}">Opis</td>
-            <td><a class="btn btn-info" th:href="@{/fleet/edit/{id}(id=${car.id})}"><i class="fa-solid fa-pen-to-square"></i></a></td>
-            <td><a class="btn btn-danger" th:href="@{/fleet/delete/{id}(id=${car.id})}"><i class="fa-solid fa-trash"></i></a></td>
+            <td th:if="${userDetails.getRole == 1 || userDetails.getRole == 2}"><a class="btn btn-info" th:href="@{/fleet/edit/{id}(id=${car.id})}"><i class="fa-solid fa-pen-to-square"></i></a></td>
+            <td th:if="${userDetails.getRole == 2}"><a class="btn btn-danger" th:href="@{/fleet/delete/{id}(id=${car.id})}"><i class="fa-solid fa-trash"></i></a></td>
             <td><a class="btn " th:href="@{/reservation/add/{id}(id=${car.id})}"><i class="fa-solid fa-database"></i></a></td>
         </tr>
         </tbody>

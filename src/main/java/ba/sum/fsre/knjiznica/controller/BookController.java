@@ -69,7 +69,6 @@ public class BookController {
         model.addAttribute("book", book);
         return "Book/edit";
     }
-
     @PostMapping("books/update/{id}")
     public String updateUser(@PathVariable("id") long id, @Valid Book book,
                              BindingResult result, Model model) {

@@ -14,7 +14,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class ReservationController {
@@ -30,15 +32,27 @@ public class ReservationController {
 
 
     @GetMapping("/reservation")
-    public String listReservation(Model model){
+    public String listReservation(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         model.addAttribute("userDetails", userDetails);
-        List<Reservation> listReservation = reservationRepo.findAll();
-        model.addAttribute("listReservation", listReservation);
         model.addAttribute("activeLink", "Reservation");
-        return "Reservation/index";
+
+        if (userDetails.getRole() == 2 || userDetails.getRole()==1) {
+            List<Reservation> listReservation = reservationRepo.findAll();
+            model.addAttribute("listReservation", listReservation);
+            return "Reservation/index";
+        } else {
+            String email = authentication.getName();
+            User user = userRepository.findByEmail(email);
+            Long userId = user.getId();
+            List<Reservation> listReservation = reservationRepo.findByUserId(userId);
+            model.addAttribute("listReservation", listReservation);
+            return "Reservation/index";
+        }
     }
+
+
 
     @GetMapping("/reservation/add")
     public String showCreateForm(Model model) {
@@ -53,7 +67,11 @@ public class ReservationController {
         model.addAttribute("fleetList", fleetList);
         model.addAttribute("reservation", new Reservation());
         model.addAttribute("carid", id);
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        model.addAttribute("activeLink", "Reservation");
+        model.addAttribute("userDetails", userDetails);
         String email = authentication.getName();
         User user = userRepository.findByEmail(email);
         Long userid = user.getId();

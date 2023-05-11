@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
   <meta charset="UTF-8">
   <title>Novi zahtjev za rezervaciju</title>
@@ -23,6 +23,7 @@
   </style>
 </head>
 <body>
+<div layout:fragment="content">
 <div class="container">
   <div class="row justify-content-center form-container">
     <div class="col-12 col-md-8 col-lg-6">
@@ -54,5 +55,6 @@
 
 <!-- Font Awesome JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" integrity="sha512-gvC2GQitLb0TeSNFzWGlVK6lJU6fnSUl6C0UHNW9XvJ+nEzy+cvZ5xLVL5rk/Sn5w5hzrsQ+oJn5aCQ9JhRdDw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</div>
 </body>
 </html>
