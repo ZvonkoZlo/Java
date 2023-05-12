@@ -19,6 +19,15 @@ public class UserController {
     @Autowired
     private UserRepository userRepo;
 
+    @GetMapping("/home")
+    public String showUploadForm(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        model.addAttribute("userDetails", userDetails);
+        model.addAttribute("activeLink", "Korisnici");
+        return "/home";
+    }
+
     @GetMapping("/users")
     public String listUsers(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

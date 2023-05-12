@@ -48,7 +48,7 @@ public class WebSecurityConfig {
                 .loginPage("/login")
                 .permitAll()
                 .usernameParameter("email")
-                .defaultSuccessUrl("/fleet", true)
+                .defaultSuccessUrl("/home", true)
                 .permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/").permitAll();

@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
     <title>Rent a car - korisnici</title>
 </head>
@@ -30,7 +29,7 @@
             <td>
                 <form  th:if="${userDetails.getRole == 2}" th:action="@{/delete}" method="post" class="d-inline">
                     <input type="hidden" name="id" th:value="${user.id}">
-                    <button type="submit" class="btn btn-danger ">
+                    <button type="submit" class="btn btn-danger " onclick="return confirm('Da li ste sigurni da želite izbrisati ovaj unos?');">
                         <i class="fa-solid fa-trash"></i>
                     </button>
                 </form>
@@ -41,5 +40,6 @@
         </tbody>
     </table>
 </div>
+
 </body>
 </html>
