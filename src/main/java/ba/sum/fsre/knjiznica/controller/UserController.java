@@ -80,10 +80,7 @@ public class UserController {
 
             return "User/edit";
         }
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String encodedPassword = passwordEncoder.encode(osoba.getPassword());
-        osoba.setPasswordRepeat(encodedPassword);
-        osoba.setPassword(encodedPassword);
+
         userRepo.save(osoba);
         if (osoba.getRole()==1 || osoba.getRole()==2) {
 

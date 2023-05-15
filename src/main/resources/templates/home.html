@@ -66,6 +66,10 @@
           <a class="w3-bar-item w3-button  dropdown-toggle dropdown" data-bs-toggle="dropdown"
              th:text="${userDetails.getFullName()}" href="#"></a>
           <ul class="dropdown-menu">
+
+            <li>
+              <a th:href="@{/edit}" class="dropdown-item">Uredi profil</a>
+            </li>
             <li>
               <form th:action="@{/logout}" method="post">
                 <input class="dropdown-item" type="submit" value="Odjavite se"/>
