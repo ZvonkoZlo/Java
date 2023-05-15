@@ -120,7 +120,7 @@
 
 
 
-                    <div class="toggle_radio">
+                    <div th:if="${userDetails.getRole == 1 || userDetails.getRole == 2}" class="toggle_radio">
                         <input type="radio" class="toggle_option" id="first_toggle" th:field="*{role}" value="2">
                         <input type="radio" checked class="toggle_option" id="second_toggle" th:field="*{role}"
                                value="1">

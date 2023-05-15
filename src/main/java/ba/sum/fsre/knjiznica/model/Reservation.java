@@ -3,6 +3,10 @@ package ba.sum.fsre.knjiznica.model;
 import jakarta.persistence.*;
 import ba.sum.fsre.knjiznica.model.Fleet;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 
 @Entity
 public class Reservation {
@@ -47,6 +51,11 @@ public class Reservation {
 
     private LocalDateTime krajRezervacije;
 
+    public static long getBrojDana(LocalDateTime pocetak, LocalDateTime kraj) {
+        LocalDate pocetakDate = pocetak.toLocalDate();
+        LocalDate krajDate = kraj.toLocalDate();
+        return ChronoUnit.DAYS.between(pocetakDate, krajDate);
+    }
     public int getStatus() {
         return status;
     }

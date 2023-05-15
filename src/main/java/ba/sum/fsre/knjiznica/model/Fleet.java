@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "fleet")
 public class Fleet {
     public String getMarkaIBrend() {
-        return this.model + " " + this.brand;
+        return this.brand + " " + this.model;
     }
 
     public Long getId() {
@@ -72,6 +72,16 @@ public class Fleet {
     @Column(length = 200, nullable = false)
     @NotBlank(message = "Molimo unesite opis vozila.")
     String description;
+
+    public Float getPrice() {
+        return price;
+    }
+
+    public void setPrice(Float price) {
+        this.price = price;
+    }
+
+    Float price;
 
     @OneToMany(mappedBy = "fleet", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Reservation> reservations = new ArrayList<>();

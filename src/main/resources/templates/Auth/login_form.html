@@ -4,13 +4,21 @@
     <meta charset="UTF-8">
     <title>Rent a car - Prijava na sustav</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+<style>
+    body{
+        background-image: url("https://www.automobili.ba/wp-content/uploads/2021/04/bmw-m3-4.jpg");
+        background-position: center;
+        background-size: cover;
+    }
+
+</style>
 </head>
 <body style="background-color: whitesmoke">
 <div class="container vh-100">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-6">
             <div class="card shadow-2-strong" style="border-radius: 1rem;">
-                <div class="card-body p-5 text-center"  style="border-radius: 1rem;">
+                <div class="card-body p-5 text-center"  style="border-radius: 1rem; background-color: lightgray;">
                 <h3>Prijava na sustav</h3>
                 <form th:action="@{/login}" th:object="${user}" method="post">
                 <div class="m-3">

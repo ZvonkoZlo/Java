@@ -51,7 +51,9 @@ public class WebSecurityConfig {
                 .defaultSuccessUrl("/home", true)
                 .permitAll()
                 .and()
-                .logout().logoutSuccessUrl("/").permitAll();
+                .logout().logoutSuccessUrl("/").permitAll()
+                .and()
+                .exceptionHandling().accessDeniedPage("/403");
 
         http.authenticationProvider(authenticationProvider());
         http.headers().frameOptions().sameOrigin();

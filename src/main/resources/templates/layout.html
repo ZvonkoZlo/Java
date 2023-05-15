@@ -34,6 +34,19 @@
             <a href="/fleet"  class="w3-bar-item w3-button ">Ponuda Vozila</a>
             <a class="w3-bar-item w3-button" href="/reservation">Rezervacije</a>
             <a class="w3-bar-item w3-button" th:if="${userDetails.getRole == 1 || userDetails.getRole == 2}" href="/users">Korisnici</a>
+
+            <a class="w3-bar-item w3-button  dropdown-toggle dropdown" data-bs-toggle="dropdown"
+               th:text="${userDetails.getFullName()}" href="#"></a>
+            <ul class="dropdown-menu">
+                <li>
+                    <form th:action="@{/logout}" method="post">
+                        <input class="dropdown-item" type="submit" value="Odjavite se"/>
+                    </form>
+                </li>
+                <li>
+                    <a th:href="@{/edit}" class="dropdown-item">Uredi profil</a>
+                </li>
+            </ul>
         </div>
     </div>
 </header>

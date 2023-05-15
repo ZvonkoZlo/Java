@@ -2,10 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"  layout:decorate="~{layout}">
 <head>
     <title>Rent a car - prikaz flote</title>
+    <style>
+        .promijeni {
+            background-color: gray;
+        }
+
+        div.promijeni:hover {
+            background-color: rgb(0, 32, 92);
+        }
+    </style>
 </head>
 <body>
 <div layout:fragment="content">
-    <div class="d-flex align-items-center justify-content-between">
+ <!--   <div class="d-flex align-items-center justify-content-between">
         <h1>Lista Automobila</h1>
         <a href="/fleet/add" class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i> Dodaj Automobil</a>
 
@@ -37,7 +46,42 @@
     </table>
 
 
-</div>
+</div>-->
+    <div class="d-flex align-items-center justify-content-between">
+        <h1>Lista Automobila</h1>
+        <a th:if="${userDetails.getRole == 1 || userDetails.getRole == 2}" href="/fleet/add" class="btn btn-outline-primary"><i class="fa-solid fa-plus"></i> Dodaj Automobil</a>
 
+    </div>
+<div class="row">
+
+
+    <div class="col-md-4 mb-3" th:each="car: ${listFleet}">
+
+        <div class="card"
+             style="background-color: rgba(149, 145, 145, 0.1); box-shadow: 2px 2px rgba(189, 186, 186, 0.1);">
+            <img th:src="${'/'} + ${car.image}" class="card-img-top img-fluid"
+                 style="width: 480px; height: 240px; object-fit: cover;" alt="">
+            <div class="card-body py-1">
+                <h5 class="card-title text-primary" th:text="${car.brand}"></h5>
+                <p class="card-text text-info" th:text="${car.model}"></p>
+
+                <a th:href="@{/reservation/add/{id}(id=${car.id})}" class="text-decoration-none ">
+
+                    <div
+                            class="card-footer background-color-black  rounded text-center text-strong promijeni">
+                                <p th:text="${car.price}+ ' KM/Dan'"></p>
+                    </div>
+                </a>
+
+                <div class="d-flex justify-content-center">
+                    <span th:if="${userDetails.getRole == 1 || userDetails.getRole == 2}"><a class="btn btn-info" th:href="@{/fleet/edit/{id}(id=${car.id})}"><i class="fa-solid fa-pen-to-square"></i></a></span>
+                    <span th:if="${userDetails.getRole == 2}"><a class="btn btn-danger" th:href="@{/fleet/delete/{id}(id=${car.id})}"><i class="fa-solid fa-trash"></i></a></span>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+</div>
 </body>
 </html>

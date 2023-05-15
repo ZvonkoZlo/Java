@@ -4,6 +4,7 @@ import ba.sum.fsre.knjiznica.model.User;
 import ba.sum.fsre.knjiznica.model.UserDetails;
 import ba.sum.fsre.knjiznica.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.Banner;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -44,6 +45,19 @@ public class UserController {
         return "redirect:/users";
 
     }
+    @GetMapping("/edit")
+    public String urediPrijavljenogKorisnika(Model model){
+        Authentication authentication =SecurityContextHolder.getContext().getAuthentication();
+        String email = authentication.getName();
+        User user = userRepo.findByEmail(email);
+        Long userid = user.getId();
+        User osoba = userRepo.findById(userid)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid osoba ID:" + userid));
+        model.addAttribute("osoba",osoba);
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        model.addAttribute("userDetails", userDetails);
+        return "User/edit";
+    }
 
     @GetMapping("/edit/{id}")
     public String editOsoba(@PathVariable Long id, Model model){
@@ -57,11 +71,12 @@ public class UserController {
         return "User/edit";
     }
     @PostMapping("/update")
-    public String updateOsoba(@ModelAttribute("osoba") User osoba, BindingResult result, Model model){
+    public String updateOsoba(@ModelAttribute("osoba") User osoba, BindingResult result, Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        model.addAttribute("userDetails", userDetails);
         model.addAttribute("activeLink", "User");
-        if(result.hasErrors()){
+        if (result.hasErrors()) {
 
             return "User/edit";
         }
@@ -70,7 +85,12 @@ public class UserController {
         osoba.setPasswordRepeat(encodedPassword);
         osoba.setPassword(encodedPassword);
         userRepo.save(osoba);
-        return "redirect:/users";
+        if (osoba.getRole()==1 || osoba.getRole()==2) {
+
+            return "redirect:/users";
+        } else {
+            return "/home";
+        }
     }
 }
 
