@@ -33,11 +33,16 @@ public class UserController {
     public String listUsers(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        List<User> listUsers = userRepo.findAll();
-        model.addAttribute("listUsers", listUsers);
-        model.addAttribute("userDetails", userDetails);
-        model.addAttribute("activeLink", "Korisnici");
-        return "User/index";
+        String email = authentication.getName();
+        User user = userRepo.findByEmail(email);
+        if(user.getRole()== 2 || user.getRole()==1) {
+            List<User> listUsers = userRepo.findAll();
+            model.addAttribute("listUsers", listUsers);
+            model.addAttribute("userDetails", userDetails);
+            model.addAttribute("activeLink", "Korisnici");
+            return "User/index";
+        }
+        else return "403";
     }
     @PostMapping("/delete")
     public String deleteOsoba(@RequestParam("id") Long id){

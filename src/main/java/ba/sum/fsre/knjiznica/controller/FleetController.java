@@ -2,6 +2,7 @@ package ba.sum.fsre.knjiznica.controller;
 
 import ba.sum.fsre.knjiznica.model.*;
 import ba.sum.fsre.knjiznica.repositories.FleetRepository;
+import ba.sum.fsre.knjiznica.repositories.UserRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -30,6 +31,8 @@ public class FleetController {
 
     @Autowired
     FleetRepository fleetRepo;
+    @Autowired
+    UserRepository userRepo;
    /*
     @GetMapping("/upload")
     public String showUploadForm() {
@@ -66,11 +69,16 @@ public class FleetController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         model.addAttribute("userDetails", userDetails);
         model.addAttribute("activeLink", "Fleet");
-        Fleet fleet = fleetRepo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid osoba ID:" + id));
-        model.addAttribute("fleet",fleet);
-        return "Fleet/edit";
 
+        String email = authentication.getName();
+        User user = userRepo.findByEmail(email);
+        if(user.getRole()== 2 || user.getRole()==1) {
+            Fleet fleet = fleetRepo.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid osoba ID:" + id));
+            model.addAttribute("fleet", fleet);
+            return "Fleet/edit";
+        }
+        else return "403";
     }
     @PostMapping("fleet/update/{id}")
     public String updateUser(@PathVariable("id") long id, @Valid Fleet fleet,
@@ -96,7 +104,12 @@ public class FleetController {
         model.addAttribute("activeLink", "Fleet");
         model.addAttribute("userDetails", userDetails);
         model.addAttribute("fleet", new Fleet());
-        return "Fleet/create";
+        String email = authentication.getName();
+        User user = userRepo.findByEmail(email);
+        if(user.getRole()== 2 || user.getRole()==1) {
+            return "Fleet/create";
+        }
+        else return "403";
     }
 
     @PostMapping("/fleet/add")
@@ -137,10 +150,15 @@ public class FleetController {
     }
     @GetMapping("/fleet/delete/{id}")
     public String delete(@PathVariable("id") long id, Model model) {
-        Fleet fleet = fleetRepo.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Invalid reservation Id:" + id));
-        fleetRepo.delete(fleet);
-        return "redirect:/fleet";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String email = authentication.getName();
+        User user = userRepo.findByEmail(email);
+        if (user.getRole() == 2 || user.getRole() == 1) {
+            Fleet fleet = fleetRepo.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("Invalid reservation Id:" + id));
+            fleetRepo.delete(fleet);
+            return "redirect:/fleet";
+        } else return "403";
     }
-
 }
