@@ -1,48 +1,89 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Add Fleet</title>
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
+            crossorigin="anonymous"
+    />
+    <style>
+        label {
+            display: inline-block;
+            width: 150px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-<h1>Add Fleet</h1>
-<form id="myForm" th:action="@{/fleet/add}" th:object="${fleet}" method="post" enctype="multipart/form-data" >
-    <div>
-        <label for="brand">Brand:</label>
-        <input type="text" id="brand" name="brand" th:field="*{brand}"/>
+<div class="container d-flex align-items-center justify-content-center p-5">
+    <div class="d-block bg-dark-subtle py-3 px-5" style="border-radius: 1rem">
+        <h1 class="h1 p-3">Add Fleet</h1>
+        <form
+                id="myForm"
+                th:action="@{/fleet/add}"
+                th:object="${fleet}"
+                method="post"
+                enctype="multipart/form-data"
+        >
+            <div>
+                <label class="p-3" for="brand">Brand:</label>
+                <input type="text" id="brand" name="brand" th:field="*{brand}" />
+            </div>
+            <div>
+                <label class="p-3" for="model">Model:</label>
+                <input type="text" id="model" name="model" th:field="*{model}" />
+            </div>
+            <div>
+                <label class="p-3 col-form-label" for="description"
+                >Description:</label
+                >
+                <textarea
+                        id="description"
+                        name="description"
+                        th:field="*{description}"
+                ></textarea>
+            </div>
+            <div>
+                <input type="file" name="file" class="bg-light ms-4" />
+            </div>
+            <div>
+                <label class="p-3" for="price">Cijena:</label>
+                <input type="number" id="price" name="price" th:field="*{price}" />
+            </div>
+            <div>
+                <input
+                        type="hidden"
+                        id="imageFile"
+                        name="imageFile"
+                        th:field="*{image}"
+                />
+            </div>
+            <button class="btn btn-primary" type="submit" id="submitButton">
+                Add Fleet
+            </button>
+        </form>
     </div>
-    <div>
-        <label for="model">Model:</label>
-        <input type="text" id="model" name="model" th:field="*{model}"/>
-    </div>
-    <div>
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" th:field="*{description}"></textarea>
-    </div>
-    <div>
-        <input type="file" name="file" />
-    </div>
-    <div>
-        <label for="price">Cijena:</label>
-        <input type="number" id="price" name="price" th:field="*{price}"/>
-    </div>
-    <div>
-
-        <input type="hidden" id="imageFile" name="imageFile" th:field="*{image}" >
-    </div>
-    <button type="submit" id="submitButton">Add Fleet</button>
-</form>
+</div>
 </body>
+<script
+        src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.min.js"
+        integrity="sha512-C2jizsJVy4MW4MolI4X9GQ7VnylIGerN1fjAvx3Roq3tVwzlpnuuZt+hjP9XmNx7oJv23zdZCmMVhNy/HBz1Dw=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+></script>
 <script>
-    const form = document.getElementById('myForm');
-    const submitButton = document.getElementById('submitButton');
+    const form = document.getElementById("myForm");
+    const submitButton = document.getElementById("submitButton");
 
-    form.addEventListener('submit', (event) => {
+    form.addEventListener("submit", (event) => {
         event.preventDefault(); // spriječi podnošenje obrasca
 
         // postavi vrijednost polja image na "test"
-        const imageInput = document.getElementById('imageFile');
-        imageInput.value = 'test';
+        const imageInput = document.getElementById("imageFile");
+        imageInput.value = "test";
 
         // ponovo podnesite obrazac
         form.submit();
